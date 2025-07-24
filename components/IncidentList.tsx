@@ -17,8 +17,7 @@ type Incident = {
 };
 
 export default function IncidentList() {
-  const [incidents, setIncidents] = useState<Incident[]>([]); // ✅ Apply the type here
-
+  const [incidents, setIncidents] = useState<Incident[]>([]); 
   const fetchIncidents = async () => {
     const res = await fetch("/api/incidents?resolved=false");
     const data = await res.json();

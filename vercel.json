@@ -1,5 +1,20 @@
 {
-  "buildCommand": "npm run build",
-  "outputDirectory": ".next",
-  "installCommand": "npm install && prisma generate"
+  "version": 2,
+  "builds": [
+    {
+      "src": "next.config.js",
+      "use": "@vercel/next"
+    }
+  ],
+  "routes": [],
+  "functions": {
+    "api/**.js": {
+      "memory": 512,
+      "maxDuration": 10
+    }
+  },
+  "env": {
+    "DATABASE_URL": "@secure_sight_database_url"
+  },
+  "buildCommand": "npm run build"
 }
