@@ -1,55 +1,51 @@
-'use client';
-
-import Image from 'next/image';
+// IncidentCard.tsx
+type Incident = {
+  id: number; // ✅ same here
+  type: string;
+  tsStart: string;
+  tsEnd: string;
+  thumbnailUrl: string;
+  resolved: boolean;
+  camera: {
+    location: string;
+  };
+};
 
 type Props = {
-  incident: {
-    id: string;
-    type: string;
-    tsStart: string;
-    tsEnd: string;
-    thumbnailUrl: string;
-    resolved: boolean;
-    camera: {
-      name: string;
-      location: string;
-    };
-  };
-  onResolve: (id: string) => void;
+  incident: Incident;
+  onResolve: (id: number) => void;
 };
+
+
 
 export default function IncidentCard({ incident, onResolve }: Props) {
   return (
-    <div className="flex items-center gap-4 p-4 border rounded-lg shadow-sm bg-white mb-3">
-      {/* ✅ Thumbnail image */}
-      <Image
+    <div className="bg-gray-800 rounded-lg p-4 mb-3 flex gap-4 items-start">
+      <img
         src={incident.thumbnailUrl}
-        alt="Incident thumbnail"
+        alt="Incident Thumbnail"
         width={120}
         height={80}
-        className="rounded-lg object-cover"
+        className="rounded-md"
       />
-
-      {/* ✅ Incident details */}
       <div className="flex-1">
-        <div className="font-semibold text-sm text-red-600">{incident.type}</div>
-        <div className="text-xs text-gray-700">{incident.camera.location}</div>
-        <div className="text-xs text-gray-500">
-          {new Date(incident.tsStart).toLocaleTimeString()} —{' '}
+        <h3 className="text-md font-bold">{incident.type}</h3>
+        <p className="text-sm text-gray-300">{incident.camera.location}</p>
+        <p className="text-xs text-gray-400">
+          {new Date(incident.tsStart).toLocaleTimeString()} -{" "}
           {new Date(incident.tsEnd).toLocaleTimeString()}
-        </div>
+        </p>
+        {!incident.resolved && (
+          <button
+            onClick={() => onResolve(incident.id)}
+            className="mt-2 px-3 py-1 bg-green-600 rounded text-sm hover:bg-green-700"
+          >
+            Resolve
+          </button>
+        )}
       </div>
-
-      {/* ✅ Resolve Button */}
-      {!incident.resolved && (
-        <button
-          onClick={() => onResolve(incident.id)}
-          className="text-xs bg-green-600 hover:bg-green-700 text-white px-3 py-1 rounded"
-        >
-          Resolve
-        </button>
-      )}
     </div>
   );
 }
+
 

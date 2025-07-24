@@ -3,8 +3,21 @@
 import { useEffect, useState } from "react";
 import IncidentCard from "./IncidentCard";
 
+// ✅ Define the incident type
+type Incident = {
+  id: number; // ✅ Fix: use number
+  type: string;
+  tsStart: string;
+  tsEnd: string;
+  thumbnailUrl: string;
+  resolved: boolean;
+  camera: {
+    location: string;
+  };
+};
+
 export default function IncidentList() {
-  const [incidents, setIncidents] = useState([]);
+  const [incidents, setIncidents] = useState<Incident[]>([]); // ✅ Apply the type here
 
   const fetchIncidents = async () => {
     const res = await fetch("/api/incidents?resolved=false");
