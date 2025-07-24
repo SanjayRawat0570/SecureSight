@@ -1,11 +1,11 @@
 {
   "buildCommand": "prisma generate && npm run build",
-  "ignoreCommand": "exit 1",
   "outputDirectory": ".next",
   "functions": {
-    "api/**/*.ts": {
+    "app/api/**/*.ts": {
       "memory": 1024,
       "maxDuration": 10
     }
   }
 }
+
