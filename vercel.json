@@ -1,20 +1,11 @@
 {
-  "version": 2,
-  "builds": [
-    {
-      "src": "next.config.js",
-      "use": "@vercel/next"
-    }
-  ],
-  "routes": [],
+  "buildCommand": "prisma generate && npm run build",
+  "ignoreCommand": "exit 1",
+  "outputDirectory": ".next",
   "functions": {
-    "api/**.js": {
-      "memory": 512,
+    "api/**/*.ts": {
+      "memory": 1024,
       "maxDuration": 10
     }
-  },
-  "env": {
-    "DATABASE_URL": "@secure_sight_database_url"
-  },
-  "buildCommand": "npm run build"
+  }
 }
