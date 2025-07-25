@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { prisma } from "../../../lib/prisma";
+import { prisma } from "@/lib/prisma"; // ✅ correct path
 
 export async function GET(req: Request) {
   try {
@@ -13,10 +13,14 @@ export async function GET(req: Request) {
     });
 
     return NextResponse.json(incidents);
-  } catch (err) {
-    console.error("❌ API ERROR /api/incidents", err);
-    return NextResponse.json({ message: "Internal Server Error" }, { status: 500 });
+  } catch (error) {
+    console.error("GET /api/incidents error:", error);
+    return NextResponse.json(
+      { error: "Internal Server Error", details: error },
+      { status: 500 }
+    );
   }
 }
+
 
 
