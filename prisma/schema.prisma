@@ -24,4 +24,3 @@ model Incident {
   cameraId     Int
   camera       Camera   @relation(fields: [cameraId], references: [id])
 }
-
