@@ -1,17 +1,22 @@
-import { prisma } from "../../../../lib/prisma";
-import { NextRequest, NextResponse } from "next/server";
+import { NextResponse } from "next/server";
+import { prisma } from "@/lib/prisma";
 
-export async function PATCH(
-  req: NextRequest,
-  { params }: { params: { id: string } }
-) {
-  const id = parseInt(params.id);
-  const incident = await prisma.incident.update({
-    where: { id },
-    data: { resolved: true },
-    include: { camera: true },
-  });
+export async function GET(req: Request) {
+  try {
+    const url = new URL(req.url);
+    const resolved = url.searchParams.get("resolved") === "true";
 
-  return NextResponse.json(incident);
+    const incidents = await prisma.incident.findMany({
+      where: { resolved },
+      include: { camera: true },
+      orderBy: { tsStart: "desc" }
+    });
+
+    return NextResponse.json(incidents);
+  } catch (err) {
+    console.error("API ERROR:", err);
+    return NextResponse.json({ error: "Failed to fetch incidents" }, { status: 500 });
+  }
 }
+
 
