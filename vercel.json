@@ -1,12 +1,5 @@
 {
   "buildCommand": "npm run build",
   "outputDirectory": ".next",
-  "framework": "nextjs",
-  "ignoreCommand": "exit 1",
-  "functions": {
-    "api/**/*.ts": {
-      "memory": 512,
-      "maxDuration": 10
-    }
-  }
+  "framework": "nextjs"
 }
