@@ -3,7 +3,6 @@
 import { useEffect, useState } from "react";
 import IncidentCard from "./IncidentCard";
 
-// ✅ Define the incident type
 type Incident = {
   id: number;
   type: string;
