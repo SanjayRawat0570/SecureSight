@@ -10,6 +10,7 @@ export async function GET(req: Request) {
     include: { camera: true },
     orderBy: { tsStart: "desc" },
   });
+  console.log(incidents)
 
   return NextResponse.json(incidents);
 }

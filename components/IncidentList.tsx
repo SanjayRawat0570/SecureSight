@@ -21,6 +21,7 @@ export default function IncidentList() {
   const fetchIncidents = async () => {
     const res = await fetch("/api/incidents?resolved=false");
     const data = await res.json();
+    console.log(data);
     setIncidents(data);
   };
 
