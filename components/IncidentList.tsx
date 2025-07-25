@@ -17,13 +17,31 @@ type Incident = {
 };
 
 export default function IncidentList() {
-  const [incidents, setIncidents] = useState<Incident[]>([]); 
+  const [incidents, setIncidents] = useState<Incident[]>([]);
   const fetchIncidents = async () => {
-    const res = await fetch("/api/incidents?resolved=false");
-    const data = await res.json();
-    console.log(data);
-    setIncidents(data);
+    try {
+      const res = await fetch("/api/incidents?resolved=false");
+
+      if (!res.ok) {
+        throw new Error(`HTTP error! status: ${res.status}`);
+      }
+
+      const text = await res.text(); // Get raw response text first
+
+      if (!text) {
+        console.warn("⚠️ Empty response body");
+        setIncidents([]); // or handle it gracefully
+        return;
+      }
+
+      const data = JSON.parse(text);
+      console.log(data);
+      setIncidents(data);
+    } catch (error) {
+      console.error("❌ Failed to load incidents:", error);
+    }
   };
+
 
   useEffect(() => {
     fetchIncidents();
