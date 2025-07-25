@@ -1,12 +1,12 @@
 {
-   "buildCommand": "npx prisma generate && npm run build",
+  "buildCommand": "npm run build",
   "outputDirectory": ".next",
+  "framework": "nextjs",
+  "ignoreCommand": "exit 1",
   "functions": {
-    "app/api/**/*.ts": {
-      "memory": 1024,
+    "api/**/*.ts": {
+      "memory": 512,
       "maxDuration": 10
     }
   }
 }
-
-
